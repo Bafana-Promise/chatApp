@@ -1,0 +1,79 @@
+<div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="100">
+        <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" class="ToolBar">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div class="imageContainer">
+                    <img src="../../assets/Book.png">
+                </div>
+                <div class="bookContainer">ng-book 2</div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <button mat-raised-button color="primary" [matBadge]="messageCount" matBadgePosition="before" matBadgeColor="accent">Messages
+                    </button>
+            </div>
+        </mat-toolbar>
+
+        <div fxFlex="50" fxLayout="column" fxLayoutAlign="center center">
+            <mat-card class="example-card width400">
+                <!-- select bot -->
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start stretch" (click)="onClick(bot)" class="avatar cursor" *ngFor="let bot of bots; let i = index">
+                    <div fxLayout="column" fxLayoutAlign="start stretch">
+                        <img src="{{bot.imgUrl}}">
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="start stretch">
+                        <p class="margin0">{{bot.userName}}</p>
+                        <h5 *ngIf="!messageSent" class="margin0">{{bot.messages[0].text}}</h5>
+                        <h5 *ngIf="messageSent" class="margin0">{{ (selectedBot.code == bot.code) ? selectedBot.messages[selectedBot.messages.length - 1].text : bot.messages[0].text}} </h5>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="paraContainer" *ngIf="isSelected">
+            <mat-card class="width400 card">
+                <div fxLayout="row" class="background" fxLayoutGap="10px" fxLayoutAlign="start stretch">
+                    <span class="material-icons">
+                            chat_bubble
+                        </span>Chat - {{selectedBot.userName}}
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start stretch" *ngFor="let message of selectedBot.messages; let i = index">
+                    <div *ngIf="i%2 == 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end stretch" class="avatar">
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <h5 class="margin0">{{selectedBot.messages[i].text}}</h5>
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <img src="{{selectedBot.imgUrl}}">
+                        </div>
+                    </div>
+
+                    <div *ngIf="messageSent && i%2 !== 0" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start stretch" class="avatar">
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <img src="{{selectedBot.imgUrl1}}">
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <h5 class="margin0">{{selectedBot.messages[i].text}}</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="space-between start">
+                    <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="76">
+                        <form class="formField" #textForm="ngForm">
+                            <mat-form-field class="fullWidth font9px" appearance="outline">
+                                <mat-label>Enter Message</mat-label>
+                                <input matInput placeholder="Write your message here..." required class="fullWidth" [(ngModel)]="textValue" name="message">
+                            </mat-form-field>
+                        </form>
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="20" class="marginTopBtn">
+                        <button mat-raised-button color="primary" (click)="submit(textForm)" [disabled]="textForm.invalid">
+                        Send
+                    </button>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+    </div>
+</div>

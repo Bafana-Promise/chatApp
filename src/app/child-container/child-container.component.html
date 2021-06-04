@@ -1,0 +1,21 @@
+<mat-card class="example-card">
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start stretch" class="avatar">
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <div fxLayout="row" fxLayoutAlign="start stretch">
+                <span class="material-icons">
+                chat_bubble
+            </span>Chat -
+            </div>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start stretch" class="avatar" *ngFor="let bot of bots">
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <img src="{{bot.imgUrl}}">
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <p class="margin0">{{bot.userName}}</p>
+            <h5 class="margin0">{{bot.messages[0].text}}</h5>
+        </div>
+    </div>
+</mat-card>
